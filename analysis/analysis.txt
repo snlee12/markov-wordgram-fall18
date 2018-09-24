@@ -1,4 +1,5 @@
-YOUR NAME and YOUR NETID
+Siyun Lee
+ssl36
 
 Run WordGramDiver for wordgrams of size 2-10 and record
 the number of WordGram values/objects that occur more than
@@ -15,12 +16,13 @@ values of WSIZE
 WSIZE    # duplicates
 2        60,453
 3        10,756
-4
-5
-7
-8
-9
-10
+4	  1,987
+5	    667
+6	    362
+7	    226
+8	    151
+9	    105
+10	     73
 
 =====
 Explain in your own words the conceptual differences between 
@@ -30,10 +32,36 @@ Answer these questions:
 (1) Why the results of these methods should be the same in 
 terms of changes made to the HashSet parameter.
 
+Both methods add the same words to each of the sets. Although the method of determining 
+each WordGram is different, the same WordGrams are added to the set. Because the same 
+WordGrams are added to the HashSet, the results are the same. 
+
 (2) What are the conceptual differences between the two
 benchmarking methods
+
+In the benchmark method, a WordGram is created by creating a new WordGram using a new index
+of the String[] words. The program starts at index 0 and runs until it reaches index 
+words.length - WSIZE + 1, which is the last index at which a WordGram of size WSIZE can be 
+created from the given String Array. All the WordGrams generated are then placed into a set.
+
+In the benchmarkShift method, a new WordGram is created by using the shiftAdd method from 
+WordGram. The WordGram is like a frame of length WSIZE and starts at index 0 of words. It
+then calls .shiftAdd() using the string that was just outside of the "frame" to the right in
+the array words. This shifts the frame to the right and creates a new WordGram from the 
+Strings within the frame. The end result is a set of WordGrams is the same as the benchmark
+method. 
 
 (3) Is the total amount of memory allocated for arrays
 the same or different in the two methods? Account for
 arrays created in the methods and arrays created by
 WordGram objects. Try to be quantitative in answering.
+
+In the method benchmark, an ArrayList of Strings is created from all the Strings in the file.
+From this ArrayList, another Array of Strings is created. As a results, this method ends up
+storing an ArrayList and and Array that each contain all the words in the file. 
+
+However, the method benchmarkShift only creates a String Array once, and it is of size, 
+WSIZE. Instead of creating a new ArrayList and Array, and using indices to create WordGrams,
+this method uses .shiftAdd(). However, .shiftAdd() creates an Array every time it is called,
+as a String[] is listed as a field variable. This method is called for every String in the 
+file. So the memory allocated for these two methods are different.
