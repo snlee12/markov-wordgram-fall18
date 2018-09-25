@@ -45,7 +45,7 @@ public class WordGram {
 
 	/**
 	 * Return the number of words in this WordGram
-	 * @return the number of strings that make up the WordGram
+	 * @return the length of class variable myWords, which comes from String[] source
 	 */
 	public int length(){
 
